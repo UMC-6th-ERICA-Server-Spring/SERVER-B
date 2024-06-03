@@ -3,6 +3,8 @@ package umc.spring.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.Gender;
 import umc.spring.domain.enums.SocialType;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicInsert
+@DynamicUpdate
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -41,7 +45,7 @@ public class Member extends BaseEntity {
     @Column(length = 6)
     private Gender gender;
 
-    @Column(nullable = false, length = 30)
+    @Column(length = 30)
     private String email;
 
     @Column(nullable = false)
@@ -90,7 +94,7 @@ public class Member extends BaseEntity {
     private List<Inquiry> inquiryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberPrefer> preferList = new ArrayList<>();
+    private List<MemberPrefer> memberPreferList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberMission> missionList = new ArrayList<>();
