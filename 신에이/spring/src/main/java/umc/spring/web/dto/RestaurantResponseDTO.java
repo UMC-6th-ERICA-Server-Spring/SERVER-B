@@ -13,4 +13,11 @@ public class RestaurantResponseDTO {
         Long restaurantId;
         LocalDateTime createdAt;
     }
+
+    @Getter
+    @Builder
+    public static class createReviewResultDTO {
+        Long reviewId;
+        LocalDateTime createdAt;
+    }
 }
