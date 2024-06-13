@@ -9,6 +9,7 @@ import umc.spring.apiPayload.exception.handler.MemberHandler;
 import umc.spring.apiPayload.exception.handler.RegionHandler;
 import umc.spring.apiPayload.exception.handler.RestaurantHandler;
 import umc.spring.converter.RestaurantConverter;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Restaurant;
 import umc.spring.domain.Review;
 import umc.spring.repository.*;
@@ -26,6 +27,7 @@ public class RestaurantCommandServiceImpl implements RestaurantCommandService {
 
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
+    private final MissionRepository missionRepository;
 
     @Override
     @Transactional
@@ -53,6 +55,20 @@ public class RestaurantCommandServiceImpl implements RestaurantCommandService {
                 .orElseThrow(() -> new RestaurantHandler(ErrorStatus.RESTAURANT_NOT_FOUND)));
 
         return reviewRepository.save(newReview);
+    }
+
+    @Override
+    @Transactional
+    public Mission createMission(RestaurantRequestDTO.createMissionDTO request, Long restaurantId) {
+
+        Mission newMission = RestaurantConverter.toMission(request);
+
+        newMission.setRestaurant(restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RestaurantHandler(ErrorStatus.RESTAURANT_NOT_FOUND)));
+
+        return missionRepository.save(newMission);
+
+
     }
 
 
