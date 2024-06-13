@@ -3,6 +3,8 @@ package umc.spring.web.dto;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 public class RestaurantRequestDTO {
 
     @Getter
@@ -39,5 +41,19 @@ public class RestaurantRequestDTO {
         String image2;
         @Size(max = 30)
         String image3;
+    }
+
+    @Getter
+    public static class createMissionDTO {
+        @NotNull
+        LocalDate deadLine;
+
+        @NotNull
+        @Min(0)
+        Integer reward;
+
+        @NotBlank
+        @Size(max = 50)
+        String content;
     }
 }

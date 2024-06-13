@@ -2,6 +2,7 @@ package umc.spring.converter;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Restaurant;
 import umc.spring.domain.Review;
 import umc.spring.web.dto.RestaurantRequestDTO;
@@ -48,6 +49,21 @@ public class RestaurantConverter {
                 .image1(request.getImage1())
                 .image2(request.getImage2())
                 .image3(request.getImage3())
+                .build();
+    }
+
+    public static RestaurantResponseDTO.createMissionResultDTO toCreateMissionResultDTO(Mission mission) {
+        return RestaurantResponseDTO.createMissionResultDTO.builder()
+                .missionId(mission.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static Mission toMission(RestaurantRequestDTO.createMissionDTO request) {
+        return Mission.builder()
+                .deadline(request.getDeadLine())
+                .reward(request.getReward())
+                .content(request.getContent())
                 .build();
     }
 }

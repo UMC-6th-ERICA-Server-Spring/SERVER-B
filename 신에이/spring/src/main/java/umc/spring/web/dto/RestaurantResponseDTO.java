@@ -20,4 +20,11 @@ public class RestaurantResponseDTO {
         Long reviewId;
         LocalDateTime createdAt;
     }
+
+    @Getter
+    @Builder
+    public static class createMissionResultDTO {
+        Long missionId;
+        LocalDateTime createdAt;
+    }
 }

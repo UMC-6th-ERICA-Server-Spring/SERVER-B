@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.RestaurantConverter;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Restaurant;
 import umc.spring.domain.Review;
 import umc.spring.service.RestaurantService.RestaurantCommandService;
@@ -33,5 +34,13 @@ public class RestaurantRestController {
 
         Review review = restaurantCommandService.createReview(request, restaurantId, memberId);
         return ApiResponse.onSuccess(RestaurantConverter.toCreateReviewResultDTO(review));
+    }
+
+    @PostMapping("/{restaurantId}/missions")
+    public ApiResponse<RestaurantResponseDTO.createMissionResultDTO> createMission(@RequestBody @Valid RestaurantRequestDTO.createMissionDTO request,
+                                                                                   @PathVariable Long restaurantId) {
+
+        Mission mission = restaurantCommandService.createMission(request, restaurantId);
+        return ApiResponse.onSuccess(RestaurantConverter.toCreateMissionResultDTO(mission));
     }
 }
