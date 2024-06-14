@@ -43,4 +43,10 @@ public class MemberRequestDTO {
         @ExistCategories
         List<Long> preferCategory;
     }
+
+    @Getter
+    public static class getMissionDTO {
+        @NotNull
+        Long missionId;
+    }
 }
