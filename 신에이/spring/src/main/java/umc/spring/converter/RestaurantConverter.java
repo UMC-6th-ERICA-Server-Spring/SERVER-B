@@ -1,6 +1,7 @@
 package umc.spring.converter;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import umc.spring.domain.Mission;
 import umc.spring.domain.Restaurant;
@@ -11,6 +12,8 @@ import umc.spring.web.dto.RestaurantResponseDTO;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -64,6 +67,28 @@ public class RestaurantConverter {
                 .deadline(request.getDeadLine())
                 .reward(request.getReward())
                 .content(request.getContent())
+                .build();
+    }
+
+    public static RestaurantResponseDTO.ReviewPreviewDTO toReviewPreviewDTO(Review review) {
+        return RestaurantResponseDTO.ReviewPreviewDTO.builder()
+                .username(review.getMember().getUsername())
+                .grade(review.getGrade())
+                .content(review.getContent())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .build();
+    }
+
+    public static RestaurantResponseDTO.ReviewPreviewListDTO toReviewPreviewListDTO(Page<Review> reviewList) {
+        List<RestaurantResponseDTO.ReviewPreviewDTO> reviewPreviewDTOList = reviewList.stream()
+                .map(RestaurantConverter::toReviewPreviewDTO).collect(Collectors.toList());
+        return RestaurantResponseDTO.ReviewPreviewListDTO.builder()
+                .isFirst(reviewList.isFirst())
+                .isLast(reviewList.isLast())
+                .totalPage(reviewList.getTotalPages())
+                .totalElements(reviewList.getTotalElements())
+                .listSize(reviewPreviewDTOList.size())
+                .reviews(reviewPreviewDTOList)
                 .build();
     }
 }
