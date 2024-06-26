@@ -64,7 +64,7 @@ public class RestaurantRestController {
     })
     @Parameters({
             @Parameter(name = "restaurantId", description = "restaurant의 Id, path variable입니다."),
-            @Parameter(name = "page", description = "page번호, 0번이 1페이지")
+            @Parameter(name = "page", description = "page번호, 0번이 1페이지, query string")
     })
     public ApiResponse<RestaurantResponseDTO.ReviewPreviewListDTO> getReviewList(@PathVariable(name = "restaurantId") Long restaurantId,
                                                                                  @RequestParam(name = "page") Integer page) {

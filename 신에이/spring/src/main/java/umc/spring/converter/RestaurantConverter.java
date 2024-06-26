@@ -79,14 +79,14 @@ public class RestaurantConverter {
                 .build();
     }
 
-    public static RestaurantResponseDTO.ReviewPreviewListDTO toReviewPreviewListDTO(Page<Review> reviewList) {
-        List<RestaurantResponseDTO.ReviewPreviewDTO> reviewPreviewDTOList = reviewList.stream()
+    public static RestaurantResponseDTO.ReviewPreviewListDTO toReviewPreviewListDTO(Page<Review> reviewPage) {
+        List<RestaurantResponseDTO.ReviewPreviewDTO> reviewPreviewDTOList = reviewPage.stream()
                 .map(RestaurantConverter::toReviewPreviewDTO).collect(Collectors.toList());
         return RestaurantResponseDTO.ReviewPreviewListDTO.builder()
-                .isFirst(reviewList.isFirst())
-                .isLast(reviewList.isLast())
-                .totalPage(reviewList.getTotalPages())
-                .totalElements(reviewList.getTotalElements())
+                .isFirst(reviewPage.isFirst())
+                .isLast(reviewPage.isLast())
+                .totalPage(reviewPage.getTotalPages())
+                .totalElements(reviewPage.getTotalElements())
                 .listSize(reviewPreviewDTOList.size())
                 .reviews(reviewPreviewDTOList)
                 .build();
